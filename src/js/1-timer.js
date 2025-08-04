@@ -25,10 +25,8 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const date = new Date(selectedDates);
-    if (intervalId) {
-      btnElem.disabled = true;
-    }
+    const date = selectedDates[0];
+    
     if (date.getTime() - Date.now() <= 0) {
       iziToast.show({
         position: 'topRight',
@@ -40,13 +38,13 @@ const options = {
       btnElem.disabled = true;
     } else {
       btnElem.disabled = false;
-      userSelectedDate = selectedDates;
+      userSelectedDate = date;
     }
   },
 };
 
 function startCountdown() {
-  const finishTime = new Date(userSelectedDate);
+  const finishTime = userSelectedDate[0];
   btnElem.disabled = true;
   inputElem.disabled = true;
   intervalId = setInterval(() => {

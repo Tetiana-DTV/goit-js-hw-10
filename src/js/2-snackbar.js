@@ -6,33 +6,38 @@ formElem.addEventListener('submit', onBtnHendle);
 
 function onBtnHendle(e) {
   e.preventDefault();
-  const delay = formElem.elements.delay.value;
+  const delay = Number(formElem.elements.delay.value);
   const state = formElem.elements.state.value;
-  const promise = new Promise((res, rej) => {
+  const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (state === 'fulfilled') {
-        res(
-          iziToast.show({
-            position: 'topRight',
-            backgroundColor: '#01a81dff',
-            messageColor: 'white',
-            title: '✅',
-            message: `Fulfilled promise in ${delay} ms`,
-          })
-        );
-      } else {
-        rej(
-          iziToast.show({
-            position: 'topRight',
-            backgroundColor: '#fa5656',
-            messageColor: 'white',
-            title: '❌',
-            message: `Rejected promise in ${delay} ms`,
-          })
-        );
-      }
+        if (state === 'fulfilled') {
+            resolve(delay);
+        }
+        else {
+            reject(delay);
+        }
     }, delay);
   });
+        promise
+            .then(ms => {
+                iziToast.show({
+                    position: 'topRight',
+                    backgroundColor: '#01a81dff',
+                    messageColor: 'white',
+                    title: '✅',
+                    message: `Fulfilled promise in ${delay} ms`,
+                });
+            })
+            .catch(ms => {
+                iziToast.show({
+                    position: 'topRight',
+                    backgroundColor: '#fa5656',
+                    messageColor: 'white',
+                    title: '❌',
+                    message: `Rejected promise in ${delay} ms`,
+                });
+            });
+      formElem.reset();
+    }
 
-  formElem.reset();
-}
+
