@@ -44,7 +44,7 @@ const options = {
 };
 
 function startCountdown() {
-  const finishTime = userSelectedDate[0];
+  const finishTime = userSelectedDate;
   btnElem.disabled = true;
   inputElem.disabled = true;
   intervalId = setInterval(() => {
